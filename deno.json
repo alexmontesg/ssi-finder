@@ -1,0 +1,29 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts",
+    "fmt": "deno fmt",
+    "fmt:check": "deno fmt --check",
+    "lint": "deno lint"
+  },
+  "imports": {
+    "@/": "./src/",
+    "@std/assert": "jsr:@std/assert@^1.0.19",
+    "fast-xml-parser": "npm:fast-xml-parser@^5.3.7"
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "fmt": {
+    "proseWrap": "preserve",
+    "semiColons": true,
+    "singleQuote": true
+  },
+  "lint": {
+    "rules": {
+      "tags": ["recommended"]
+    }
+  }
+}
