@@ -1,6 +1,6 @@
 import { FilingProcessor } from './processors/processor.ts';
-import Filing from './model/filing.ts';
-import Router from '@/routers/router.ts';
+import Filing from '@/core/domain/entities/filing.ts';
+import Router from '@/core/ports/router.ts';
 
 export default class EdgarRouter extends Router {
   override processors: FilingProcessor[] = [];

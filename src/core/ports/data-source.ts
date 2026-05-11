@@ -1,4 +1,4 @@
-import Router from '../routers/router.ts';
+import Router from './router.ts';
 
 export default interface DataSource {
   name: string;

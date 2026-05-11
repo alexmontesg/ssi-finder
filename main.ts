@@ -1,4 +1,4 @@
-import EdgarDataSource from '@/data-sources/edgar/data-source.ts';
+import EdgarDataSource from '@/providers/edgar/data-source.ts';
 
 async function main() {
   const dataSource = new EdgarDataSource();

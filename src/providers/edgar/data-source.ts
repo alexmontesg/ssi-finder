@@ -1,10 +1,10 @@
-import { PollOptions } from '@/clients/rss/model/types.ts';
-import RSSDataSource from '../rss-data-source.ts';
-import Filing from './model/filing.ts';
-import { EdgarRSSPoller } from './poller.ts';
-import registerDefaultProcessors from './processors/registrar.ts';
+import { PollOptions } from '@/lib/rss/types.ts';
+import RSSDataSource from './rss-data-source.ts';
+import Filing from '@/core/domain/entities/filing.ts';
+import { EdgarRSSPoller } from './infra/poller.ts';
+import registerDefaultProcessors from './registrar.ts';
 import EdgarRouter from './router.ts';
-import { EdgarRSSFetcher } from './fetcher.ts';
+import { EdgarRSSFetcher } from './infra/fetcher.ts';
 
 export default class EdgarDataSource extends RSSDataSource {
   name = 'EDGAR';
@@ -28,7 +28,10 @@ export default class EdgarDataSource extends RSSDataSource {
     registerDefaultProcessors(this.router);
   }
 
-  static async onNewItems(items: Array<unknown>, router: EdgarRouter) {
+  static async onNewItems(
+    items: Array<unknown>,
+    router: EdgarRouter,
+  ) {
     const routingPromises = items
       .map((item) => item as { filing?: Filing })
       .filter((item) => item.filing)

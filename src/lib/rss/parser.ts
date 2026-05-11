@@ -1,5 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
-import { RSSFeed, RSSItem } from './model/types.ts';
+import { RSSFeed, RSSItem } from './types.ts';
 
 export class RSSParser {
   private parser = new XMLParser({
@@ -14,7 +14,9 @@ export class RSSParser {
       throw new Error('Invalid RSS feed format');
     }
 
-    const items: Array<{ [key: string]: unknown }> = Array.isArray(channel.item)
+    const items: Array<{ [key: string]: unknown }> = Array.isArray(
+        channel.item,
+      )
       ? channel.item
       : [channel.item];
 

@@ -1,4 +1,4 @@
-import { RSSPoller } from '@/clients/rss/poller.ts';
+import { RSSPoller } from '@/lib/rss/poller.ts';
 import { EdgarRSSFetcher } from './fetcher.ts';
 import { EdgarRSSParser } from './parser.ts';
 

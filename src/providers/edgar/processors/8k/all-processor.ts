@@ -1,4 +1,4 @@
-import Filing from '../../model/filing.ts';
+import Filing from '@/core/domain/entities/filing.ts';
 import { FilingProcessor } from '../processor.ts';
 
 export default class AllProcessor implements FilingProcessor {
@@ -8,7 +8,7 @@ export default class AllProcessor implements FilingProcessor {
 
   async process(filing: Filing): Promise<void> {
     console.log(
-      `Processing filing for ${filing.companyName} (${filing.formType})`
+      `Processing filing for ${filing.companyName} (${filing.formType})`,
     );
 
     return await Promise.resolve();

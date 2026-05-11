@@ -22,8 +22,10 @@
     "singleQuote": true
   },
   "lint": {
+    "plugins": ["./lint/architecture.ts"],
     "rules": {
-      "tags": ["recommended"]
+      "tags": ["recommended"],
+      "include": ["arch-enforce/no-outward-dependencies"]
     }
   }
 }

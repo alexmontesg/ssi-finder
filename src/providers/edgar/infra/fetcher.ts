@@ -1,4 +1,4 @@
-import { RSSFetcher } from '@/clients/rss/fetcher.ts';
+import { RSSFetcher } from '@/lib/rss/fetcher.ts';
 
 export class EdgarRSSFetcher extends RSSFetcher {
   static getFeedUrl(): string {

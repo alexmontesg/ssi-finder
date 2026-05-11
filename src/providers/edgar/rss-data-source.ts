@@ -1,7 +1,7 @@
-import { PollOptions } from '@/clients/rss/model/types.ts';
-import { RSSPoller } from '@/clients/rss/poller.ts';
-import Router from '@/routers/router.ts';
-import DataSource from './data-source.ts';
+import { PollOptions } from '@/lib/rss/types.ts';
+import { RSSPoller } from '@/lib/rss/poller.ts';
+import Router from '@/core/ports/router.ts';
+import DataSource from '@/core/ports/data-source.ts';
 
 export default abstract class RSSDataSource implements DataSource {
   protected poller: RSSPoller;

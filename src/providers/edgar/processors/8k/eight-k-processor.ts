@@ -1,4 +1,4 @@
-import Filing from '../../model/filing.ts';
+import Filing from '@/core/domain/entities/filing.ts';
 import { FilingProcessor } from '../processor.ts';
 
 export default class EightKProcessor implements FilingProcessor {
@@ -7,7 +7,6 @@ export default class EightKProcessor implements FilingProcessor {
   }
 
   async process(filing: Filing): Promise<void> {
-    // TODO: Proper implementation
     console.log(`Processing 8-K filing for ${filing.companyName}`);
     const eightKUrl = filing.files?.find((file) => file.type === '8-K')?.url;
     if (eightKUrl) {

@@ -1,6 +1,6 @@
 import { RSSFetcher } from './fetcher.ts';
 import { RSSParser } from './parser.ts';
-import { PollOptions } from './model/types.ts';
+import { PollOptions } from './types.ts';
 
 export class RSSPoller {
   private seenGuids = new Set<string>();
@@ -8,10 +8,9 @@ export class RSSPoller {
   private fetcher: RSSFetcher;
   private parser: RSSParser;
 
-  constructor({
-    fetcher,
-    parser,
-  }: { fetcher?: RSSFetcher; parser?: RSSParser } = {}) {
+  constructor(
+    { fetcher, parser }: { fetcher?: RSSFetcher; parser?: RSSParser } = {},
+  ) {
     this.fetcher = fetcher ?? new RSSFetcher();
     this.parser = parser ?? new RSSParser();
   }
@@ -19,10 +18,8 @@ export class RSSPoller {
   async start(options: PollOptions): Promise<void> {
     console.log(`Starting RSS poller with interval: ${options.intervalMs}ms`);
 
-    // Initial fetch
     await this.fetchAndProcess(options);
 
-    // Poll at regular intervals
     this.pollIntervalId = setInterval(
       () => this.fetchAndProcess(options),
       options.intervalMs,
@@ -42,7 +39,6 @@ export class RSSPoller {
       const xmlData = await this.fetcher.fetchRSSFeed(options.url);
       const feed = this.parser.parse(xmlData);
 
-      // Find new items
       const newItems = feed.items.filter((item) => {
         const itemId = item.link || item.title;
         if (this.seenGuids.has(itemId)) {

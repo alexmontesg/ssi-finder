@@ -1,4 +1,4 @@
-import { RSSItem } from '@/clients/rss/model/types.ts';
+import { RSSItem } from '@/lib/rss/types.ts';
 
 export interface EdgarRSSFile {
   '@_edgar:sequence'?: string;

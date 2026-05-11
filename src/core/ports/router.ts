@@ -1,4 +1,4 @@
-import { Processable, Processor } from '@/processors/processor.ts';
+import { Processable, Processor } from './processor.ts';
 
 export default abstract class Router {
   processors: Array<Processor> = [];
