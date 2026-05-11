@@ -1,7 +1,7 @@
 import { RSSParser } from '@/lib/rss/parser.ts';
 import { EdgarRSSFile, EdgarRSSFiling } from '../model/rss-types.ts';
-import Filing from '@/core/domain/entities/filing.ts';
-import File from '@/core/domain/entities/file.ts';
+import Filing from '../domain/entities/filing.ts';
+import File from '../domain/entities/file.ts';
 
 export class EdgarRSSParser extends RSSParser {
   protected override parseItem(item: { [key: string]: unknown }) {

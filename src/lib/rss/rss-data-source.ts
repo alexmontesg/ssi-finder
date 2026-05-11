@@ -1,5 +1,5 @@
-import { PollOptions } from '@/lib/rss/types.ts';
-import { RSSPoller } from '@/lib/rss/poller.ts';
+import { PollOptions } from './types.ts';
+import { RSSPoller } from './poller.ts';
 import Router from '@/core/ports/router.ts';
 import DataSource from '@/core/ports/data-source.ts';
 

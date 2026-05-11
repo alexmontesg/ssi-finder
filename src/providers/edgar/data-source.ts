@@ -1,6 +1,6 @@
 import { PollOptions } from '@/lib/rss/types.ts';
-import RSSDataSource from './rss-data-source.ts';
-import Filing from '@/core/domain/entities/filing.ts';
+import RSSDataSource from '@/lib/rss/rss-data-source.ts';
+import Filing from './domain/entities/filing.ts';
 import { EdgarRSSPoller } from './infra/poller.ts';
 import registerDefaultProcessors from './registrar.ts';
 import EdgarRouter from './router.ts';

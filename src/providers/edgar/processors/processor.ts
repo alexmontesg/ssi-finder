@@ -1,5 +1,5 @@
 import { Processor } from '@/core/ports/processor.ts';
-import Filing from '@/core/domain/entities/filing.ts';
+import Filing from '../domain/entities/filing.ts';
 
 export interface FilingProcessor extends Processor {
   supports(formType: string): boolean;

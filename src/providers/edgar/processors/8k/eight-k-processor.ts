@@ -1,4 +1,4 @@
-import Filing from '@/core/domain/entities/filing.ts';
+import Filing from '../../domain/entities/filing.ts';
 import { FilingProcessor } from '../processor.ts';
 
 export default class EightKProcessor implements FilingProcessor {

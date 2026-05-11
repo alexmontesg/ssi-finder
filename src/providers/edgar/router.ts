@@ -1,5 +1,5 @@
 import { FilingProcessor } from './processors/processor.ts';
-import Filing from '@/core/domain/entities/filing.ts';
+import Filing from './domain/entities/filing.ts';
 import Router from '@/core/ports/router.ts';
 
 export default class EdgarRouter extends Router {
