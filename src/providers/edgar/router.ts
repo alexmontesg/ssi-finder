@@ -14,6 +14,7 @@ export default class EdgarRouter extends Router {
     const matchingProcessors = this.processors.filter((p) =>
       p.supports(formType)
     );
-    await Promise.all(matchingProcessors.map((p) => p.process(filing)));
+
+    return await Promise.all(matchingProcessors.map((p) => p.process(filing)));
   }
 }

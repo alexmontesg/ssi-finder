@@ -1,4 +1,4 @@
-import { Processable, Processor } from './processor.ts';
+import { Processable, Processed, Processor } from './processor.ts';
 
 export default abstract class Router {
   processors: Array<Processor> = [];
@@ -7,5 +7,5 @@ export default abstract class Router {
     this.processors.push(processor);
   }
 
-  abstract route(processable: Processable): Promise<void>;
+  abstract route(processable: Processable): Promise<Processed[] | undefined>;
 }
