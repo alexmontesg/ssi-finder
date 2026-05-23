@@ -6,6 +6,12 @@ export default function startServer() {
   const controllers = new Set<ReadableStreamDefaultController>();
 
   const server = Deno.serve({ port: 8000 }, (req: Request) => {
+    const url = new URL(req.url);
+
+    if (url.pathname !== '/sse') {
+      return new Response(null, { status: 404 });
+    }
+
     const stream = new ReadableStream({
       start(controller) {
         controllers.add(controller);
@@ -19,7 +25,6 @@ export default function startServer() {
 
     return new Response(stream, {
       headers: {
-        'Access-Control-Allow-Origin': '*',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
         'Content-Type': 'text/event-stream',
@@ -59,7 +64,9 @@ export default function startServer() {
       controllers.forEach((controller) => {
         try {
           controller.close();
-        } catch {}
+        } catch {
+          // no-op: intentionally ignored
+        }
       });
 
       controllers.clear();

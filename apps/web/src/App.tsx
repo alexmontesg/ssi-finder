@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const EVENT_SOURCE_URL = "http://localhost:8000";
+const EVENT_SOURCE_URL = "/sse";
 
 function App() {
   useEffect(() => {
