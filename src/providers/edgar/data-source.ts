@@ -50,7 +50,9 @@ export default class EdgarDataSource extends RSSDataSource {
 
     routingPromises.forEach(async (promise) => {
       const results = await promise;
-      results.forEach(notify);
+      setInterval(() => { // TODO: Repeat events just to facilitate testing when no new events are coming often (eg weekends)
+        results.forEach(notify);
+      }, 5000);
     });
   }
 }

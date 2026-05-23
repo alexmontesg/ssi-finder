@@ -1,5 +1,7 @@
 import { Notifiable } from '@/core/ports/notifier.ts';
 
+const encoder = new TextEncoder();
+
 export default function startServer() {
   const controllers = new Set<ReadableStreamDefaultController>();
 
@@ -10,12 +12,14 @@ export default function startServer() {
 
         req.signal.addEventListener('abort', () => {
           controller.close();
+          controllers.delete(controller);
         });
       },
     });
 
     return new Response(stream, {
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'Cache-Control': 'no-cache',
         Connection: 'keep-alive',
         'Content-Type': 'text/event-stream',
@@ -23,14 +27,44 @@ export default function startServer() {
     });
   });
 
+  const heartbeat = encoder.encode(': keep-alive\n\n');
+
+  const heartbeatInterval = setInterval(() => {
+    controllers.forEach((c) => {
+      try {
+        c.enqueue(heartbeat);
+      } catch (_) {
+        controllers.delete(c);
+      }
+    });
+  }, 5000);
+
   return {
     server,
 
     sendEvent(data: Notifiable) {
-      const encoded = new TextEncoder().encode(data.asText());
+      try {
+        const encoded = encoder.encode(`data: ${data.asText()}\n\n`);
+        controllers.forEach((controller) => {
+          controller.enqueue(encoded);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    shutdown() {
+      clearInterval(heartbeatInterval);
+
       controllers.forEach((controller) => {
-        controller.enqueue(encoded);
+        try {
+          controller.close();
+        } catch {}
       });
+
+      controllers.clear();
+
+      server.shutdown();
     },
   };
 }
