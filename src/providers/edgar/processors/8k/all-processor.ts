@@ -8,7 +8,8 @@ export default class AllProcessor implements FilingProcessor {
   }
 
   async process(filing: Filing): Promise<EdgarProcessedFilling> {
-    const result = `Processing filing for ${filing.companyName} (${filing.formType})`;
+    const result =
+      `Processing filing for ${filing.companyName} (${filing.formType})`;
 
     return await Promise.resolve(new EdgarProcessedFilling(result));
   }

@@ -1,4 +1,4 @@
-import { Processed } from '@/core/ports/processor.ts';
+import { Notifiable } from '@/core/ports/notifier.ts';
 
 export default function startServer() {
   const controllers = new Set<ReadableStreamDefaultController>();
@@ -26,8 +26,8 @@ export default function startServer() {
   return {
     server,
 
-    sendEvent(data: Processed) {
-      const encoded = new TextEncoder().encode(data.getResult());
+    sendEvent(data: Notifiable) {
+      const encoded = new TextEncoder().encode(data.asText());
       controllers.forEach((controller) => {
         controller.enqueue(encoded);
       });

@@ -7,7 +7,7 @@ export default class EdgarRouter extends Router {
 
   async route(filing: Filing) {
     if (!filing.formType) {
-      return;
+      return [];
     }
     const { formType } = filing;
 

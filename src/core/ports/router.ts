@@ -7,5 +7,5 @@ export default abstract class Router {
     this.processors.push(processor);
   }
 
-  abstract route(processable: Processable): Promise<Processed[] | undefined>;
+  abstract route(processable: Processable): Promise<Processed[]>;
 }

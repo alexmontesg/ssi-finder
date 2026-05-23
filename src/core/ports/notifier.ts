@@ -1,5 +1,7 @@
-import { Processed } from '@/core/ports/processor.ts';
+export interface Notifiable {
+  asText(): string;
+}
 
 export interface Notifier {
-  notify(report: Processed): Promise<void>;
+  notify(notifiable: Notifiable): Promise<void>;
 }

@@ -7,16 +7,17 @@ import EdgarRouter from './router.ts';
 import { EdgarRSSFetcher } from './infra/fetcher.ts';
 import { SSENotifier } from '@/lib/sse/sse-notifier.ts';
 import EdgarProcessedFilling from '@/providers/edgar/domain/entities/processed-filing.ts';
+import { Notifier } from '@/core/ports/notifier.ts';
 
 export default class EdgarDataSource extends RSSDataSource {
   name = 'EDGAR';
   override router: EdgarRouter;
-  override notifier: SSENotifier;
+  override notifier: Notifier;
 
   constructor(options: Partial<PollOptions> = {}) {
     const poller = new EdgarRSSPoller();
     const router = new EdgarRouter();
-    const notifier = new SSENotifier();
+    const notifier = new SSENotifier(); // TODO: Inject
     const notify = (p: EdgarProcessedFilling) => notifier.notify(p);
 
     const defaultOptions: PollOptions = {
@@ -39,7 +40,7 @@ export default class EdgarDataSource extends RSSDataSource {
   static onNewItems(
     items: Array<unknown>,
     router: EdgarRouter,
-    notify: (p: EdgarProcessedFilling) => Promise<void>
+    notify: (p: EdgarProcessedFilling) => Promise<void>,
   ) {
     const routingPromises = items
       .map((item) => item as { filing?: Filing })
@@ -49,9 +50,7 @@ export default class EdgarDataSource extends RSSDataSource {
 
     routingPromises.forEach(async (promise) => {
       const results = await promise;
-      if (results) {
-        results.forEach(notify);
-      }
+      results.forEach(notify);
     });
   }
 }

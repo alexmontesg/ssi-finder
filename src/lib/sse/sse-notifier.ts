@@ -1,5 +1,4 @@
-import { Notifier } from '@/core/ports/notifier.ts';
-import { Processed } from '@/core/ports/processor.ts';
+import { Notifiable, Notifier } from '@/core/ports/notifier.ts';
 import startServer from '@/lib/sse/server.ts';
 
 export class SSENotifier implements Notifier {
@@ -9,7 +8,7 @@ export class SSENotifier implements Notifier {
     this.sendEvent = startServer().sendEvent;
   }
 
-  notify(report: Processed): Promise<void> {
+  notify(report: Notifiable): Promise<void> {
     return Promise.resolve(this.sendEvent(report));
   }
 }

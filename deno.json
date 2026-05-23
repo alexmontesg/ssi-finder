@@ -11,9 +11,8 @@
     "fast-xml-parser": "npm:fast-xml-parser@^5.3.7"
   },
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "fmt": {
