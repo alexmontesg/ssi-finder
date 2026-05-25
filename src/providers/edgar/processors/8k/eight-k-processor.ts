@@ -8,13 +8,22 @@ export default class EightKProcessor implements FilingProcessor {
   }
 
   async process(filing: Filing): Promise<EdgarProcessedFilling> {
-    let result = `Processing 8-K filing for ${filing.companyName}\n`;
+    const result = {
+      id: filing.accessionNumber,
+      company: filing.companyName,
+      filing: filing.formType,
+    } as {
+      id: string;
+      company: string;
+      filing: string;
+      document: string | undefined;
+    };
+
+    filing.companyName;
 
     const eightKUrl = filing.files?.find((file) => file.type === '8-K')?.url;
 
-    result += eightKUrl
-      ? `8-K URL: ${eightKUrl}`
-      : 'No 8-K file found in the filing.';
+    result.document = eightKUrl;
 
     return await Promise.resolve(new EdgarProcessedFilling(result));
   }
