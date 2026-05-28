@@ -1,11 +1,12 @@
 import { HTMLParser } from '@/lib/html/parser.ts';
 import { EightKSection } from '@/providers/edgar/processors/8k/eight-k-section.ts';
+import { EdgarDocumentDownloader } from '@/providers/edgar/processors/document-downloader.ts';
 
 export class EightKParser {
   private sections: Array<EightKSection> = [];
+
   private constructor(readonly parser: HTMLParser) {
     const paragraphs = parser.extractText();
-    console.log('paragraphs', paragraphs);
     this.buildSections(paragraphs);
   }
 
@@ -37,12 +38,10 @@ export class EightKParser {
     if (!eightKUrl) {
       throw new Error('No document found');
     }
-    const response = await fetch(eightKUrl, {
-      headers: {
-        'User-Agent': Deno.env.get('EDGAR_USER_AGENT'),
-      },
-    });
-    const content = await response.text();
+
+    const content = await EdgarDocumentDownloader.getInstance().fetch(
+      eightKUrl,
+    );
 
     return new EightKParser(new HTMLParser(content));
   }
